@@ -4,6 +4,8 @@ export const getDashboardRoute = () => {
   return "/dashboard";
 };
 
+export const getProjectsRoute = () => "/projects";
+
 export const getInstancesRoute = () => {
   return "/instances";
 };

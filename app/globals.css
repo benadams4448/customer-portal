@@ -10,6 +10,10 @@ body,
 
 @layer base {
   :root {
+    --workspace-bg: #101014;
+    --workspace-panel: #19191f;
+    --workspace-border: #2b2b35;
+    --workspace-muted: #a3a3b4;
     --white: #ffffff;
 
     --purple-50: #f9f5ff;

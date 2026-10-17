@@ -7,6 +7,7 @@ import {
   getEventsRoute,
   getInstanceSnapshotsRoute,
   getPaymentSettingsRoute,
+  getProjectsRoute,
   getReleaseHistoryRoute,
   getSettingsRoute,
 } from "src/utils/routes";
@@ -22,6 +23,7 @@ export const PAGE_TITLE_MAP = {
   "/privacy-policy": "Privacy Policy",
 
   "/dashboard": "Dashboard",
+  [getProjectsRoute()]: "Projects",
   "/instances": "Instances",
   [getInstanceSnapshotsRoute()]: "Instance Snapshots",
   [getCloudAccountsRoute({})]: "Cloud Accounts",

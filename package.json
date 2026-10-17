@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "nodemon server.js",
+    "dev:workspace": "node scripts/dev-workspace.cjs",
     "dev:test": "node server.js",
     "build": "next build",
+    "build:designer": "node scripts/build-designer.cjs",
     "start": "NODE_ENV=production node server.js",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",

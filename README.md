@@ -48,6 +48,18 @@ These details are crucial as they will be presented to customers accessing your 
 
 ## Build and Run Locally
 
+### Preview the project workspace without accounts
+
+```bash
+yarn dev:workspace
+```
+
+Open <http://127.0.0.1:3000/projects>. No `.env.local`, provider account, user credentials or email settings are needed for this sample workspace. Stop any running `yarn dev` server first so port 3000 is available.
+
+This development-only command binds to localhost and serves the sample workspace and its Next.js assets. It does not serve backend API routes, send email, or use real authentication. Changes reset on refresh. The preview flag has no effect in production. Use the normal `yarn dev` command and the configuration below when working with the original connected portal.
+
+### Run the connected portal
+
 To build and run the Customer Portal locally
 
 1. You'll need Node.js installed on your system. Download the latest LTS version (20.11.1 as of March 13, 2024) from <https://nodejs.org/>. Check the node version to confirm successful installation.

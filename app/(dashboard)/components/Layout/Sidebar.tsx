@@ -21,6 +21,7 @@ import {
   getInstancesRoute,
   getNotificationsRoute,
   getPaymentSettingsRoute,
+  getProjectsRoute,
   getReleaseHistoryRoute,
   getSettingsRoute,
   getSnapshotDetailsRoute,
@@ -255,6 +256,11 @@ const Sidebar = () => {
 
   const topItems = useMemo(() => {
     return [
+      {
+        name: "Projects",
+        icon: ResourcesIcon,
+        href: getProjectsRoute(),
+      },
       {
         name: "Dashboard",
         icon: DashboardNavIcon,

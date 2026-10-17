@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import { ENVIRONMENT_TYPES } from "src/constants/environmentTypes";
 import { getProviderOrgDetails } from "src/server/api/customer-user";
+import { isProjectWorkspacePreview } from "src/server/utils/projectWorkspacePreview";
 import { EnvironmentType } from "src/types/common/enums";
 import { ProviderUser } from "src/types/users";
 
@@ -19,9 +20,12 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  const projectPreview = isProjectWorkspacePreview();
   let providerOrgDetails: { data: ProviderUser };
   try {
-    providerOrgDetails = await getProviderOrgDetails();
+    providerOrgDetails = projectPreview
+      ? { data: { id: "local-workspace-preview", orgName: "Client workspace" } }
+      : await getProviderOrgDetails();
   } catch (error) {
     // Only the provider auth/bootstrap failure maps to the config error page.
     // Let other runtime errors bubble to global-error so they aren't masked.
@@ -36,7 +40,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <head>
-        {process.env.GOOGLE_ANALYTICS_TAG_ID && (
+        {!projectPreview && !!process.env.GOOGLE_ANALYTICS_TAG_ID && (
           <>
             {/* Load GA script early; establish default denied consent but still send a cookieless page_view for modeling */}
             <script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS_TAG_ID}`} async />
@@ -83,7 +87,8 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
         <RootProviders
           envType={(process.env.ENVIRONMENT_TYPE || ENVIRONMENT_TYPES.PROD) as EnvironmentType}
           providerOrgDetails={providerOrgDetails.data}
-          googleAnalyticsTagID={process.env.GOOGLE_ANALYTICS_TAG_ID}
+          googleAnalyticsTagID={projectPreview ? undefined : process.env.GOOGLE_ANALYTICS_TAG_ID}
+          projectPreview={projectPreview}
         >
           {children}
         </RootProviders>

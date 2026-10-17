@@ -4,12 +4,9 @@ import { jwtDecode } from "jwt-decode";
 import { baseURL } from "src/axios";
 import { PAGE_TITLE_MAP } from "src/constants/pageTitleMap";
 import { COOKIE_NAME, REFRESH_COOKIE_NAME } from "src/server/utils/authCookieConstants";
-import {
-  clearAuthCookieEdge,
-  clearIndicatorCookieEdge,
-  clearRefreshCookieEdge,
-} from "src/server/utils/authCookieEdge";
+import { clearAuthCookieEdge, clearIndicatorCookieEdge, clearRefreshCookieEdge } from "src/server/utils/authCookieEdge";
 import { getEnvironmentType } from "src/server/utils/getEnvironmentType";
+import { isProjectWorkspacePreview } from "src/server/utils/projectWorkspacePreview";
 
 const environmentType = getEnvironmentType();
 
@@ -28,6 +25,10 @@ export async function proxy(request) {
   const authToken = request.cookies.get(COOKIE_NAME);
   const refreshToken = request.cookies.get(REFRESH_COOKIE_NAME);
   const path = request.nextUrl.pathname;
+
+  if (isProjectWorkspacePreview() && (path === "/projects" || path === "/projects/")) {
+    return NextResponse.next();
+  }
 
   if (path.startsWith("/signup") || path.startsWith("/reset-password") || path.startsWith("/change-password")) {
     if (environmentType === "PROD") return;

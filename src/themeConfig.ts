@@ -1,5 +1,9 @@
 export const themeConfig = {
   colors: {
+    workspaceBackground: "var(--workspace-bg)",
+    workspacePanel: "var(--workspace-panel)",
+    workspaceBorder: "var(--workspace-border)",
+    workspaceMuted: "var(--workspace-muted)",
     white: "var(--white)",
 
     purple50: "var(--purple-50)",

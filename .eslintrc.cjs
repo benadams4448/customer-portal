@@ -333,6 +333,8 @@ module.exports = {
     "schema.ts",
     ".next/*",
     "out/*",
+    "designer-preview/out/**",
+    "designer-preview/.next/**",
     "coverage/*",
     "test-results/*",
     "playwright-report/*",

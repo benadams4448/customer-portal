@@ -53,11 +53,13 @@ const RootProviders = ({
   envType,
   providerOrgDetails,
   googleAnalyticsTagID,
+  projectPreview = false,
 }: {
   children: React.ReactNode;
   envType: EnvironmentType;
   providerOrgDetails: ProviderUser;
   googleAnalyticsTagID: string | undefined;
+  projectPreview?: boolean;
 }) => {
   const pathname = usePathname();
   // const isDashboardRoute = !nonDashboardRoutes.includes(pathname as string);
@@ -83,7 +85,7 @@ const RootProviders = ({
       <Provider store={store}>
         <QueryClientProvider client={queryQlient}>
           <Suspense>
-            <ProviderFavicon />
+            {!projectPreview && <ProviderFavicon />}
             <SnackbarProvider>
               <NotificationBarProvider>
                 <AxiosGlobalErrorHandler />
